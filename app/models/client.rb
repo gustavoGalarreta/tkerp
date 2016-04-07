@@ -7,6 +7,7 @@ class Client < ActiveRecord::Base
   belongs_to :entity
   belongs_to :partner, class_name: "Client", foreign_key: "partner_id"
 
+  has_many :projects
   has_many :clients, class_name: "Client", foreign_key: "partner_id"
   has_many :contacts
   has_many :prospects

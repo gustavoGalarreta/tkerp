@@ -133,4 +133,4 @@ group :development do
   gem 'quiet_assets'
 end
 
-ruby '2.1.1'
+#ruby '2.1.1'

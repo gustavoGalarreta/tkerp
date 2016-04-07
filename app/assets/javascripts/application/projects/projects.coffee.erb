@@ -1,0 +1,54 @@
+ready = ->
+	get_collaborators()
+	validateUnique('.select-task');
+
+get_collaborators = ->
+	$("#project_team_id").change ->
+		$.ajax "<%= RELATIVE_URL_ROOT %>" + 'projects/new',
+    type: 'GET'
+    dataType: 'script'
+    data:
+      team_id: $("#project_team_id option:selected").val()
+
+validateUnique = (klass) ->
+  arraySelect = new Array
+  $(klass).each ->
+    if $(this).is(':visible')
+      arraySelect.push $(this).val()
+  $(klass).each ->
+    if $(this).is(':visible')
+      $(this).children('option').each ->
+        $(this).removeAttr 'disabled'
+  $(klass).each ->
+    if $(this).is(':visible')
+      comboSelectedValue = $(this).val()
+      $(this).children('option').each ->
+        disableMe = false
+        thisVal = $(this).val()
+        i = 0
+        len = arraySelect.length
+        while i < len
+          if disableMe == false
+            if thisVal != comboSelectedValue
+              if thisVal == arraySelect[i]
+                disableMe = true
+          i++
+        if disableMe
+          $(this).attr 'disabled', true
+
+$(document).on 'change', '.select-task', ->
+  $('.select-task').each ->
+    if $(this).is(':visible')
+      last = $(this)
+  if $(this).is(last)
+    $('#add_task').click()
+  validateUnique '.select-task'
+
+$(document).on 'nested:fieldAdded', ->
+  validateUnique '.select-task'
+
+$(document).on 'nested:fieldRemoved', ->
+  validateUnique '.select-task'
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

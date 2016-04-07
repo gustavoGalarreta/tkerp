@@ -26,6 +26,8 @@ class Collaborator < ActiveRecord::Base
   has_many :parents, through: :parental_relationship, source: "person"
   has_many :job_experiences
   has_many :job_entities, through: :job_experiences, class_name: "Entity"
+  has_many :projects, through: :collaborator_projects
+  has_many :collaborator_projects
   has_one :collaborator_salary_bank, -> { where(type: CollaboratorEntity.types[:salary]) }, foreign_key: "collaborator_id", class_name: "CollaboratorEntity"
   has_one :salary_bank, through: :collaborator_salary_bank, source: "entity"
   has_one :collaborator_cts_bank, -> { where(type: CollaboratorEntity.types[:cts]) }, foreign_key: "collaborator_id", class_name: "CollaboratorEntity"
@@ -149,6 +151,13 @@ class Collaborator < ActiveRecord::Base
       ]
     else
       nil
+    end
+  end
+
+  def belongs_to_project project_id
+    if project_id.present?
+      project = Project.find(project_id)
+      project.collaborators.include? self
     end
   end
 

@@ -38,7 +38,6 @@ class ClientsController < ApplicationController
 
   def update
     @entity.assign_attributes(entity_params)
-
     respond_to do |format|
       if @entity.save_client
         format.html { redirect_to clients_path, notice: 'Client was successfully updated.' }

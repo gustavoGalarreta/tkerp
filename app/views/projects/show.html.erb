@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Project name:</strong></h3>
+    </div>
+    <div class="panel-body">
+        <%= @project.name %>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Project description:</strong></h3>
+    </div>
+    <div class="panel-body">
+        <%= @project.description %>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Project client name:</strong></h3>
+    </div>
+    <div class="panel-body">
+        <%= @project.client_name %>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><strong>Project users:</strong></h3>
+    </div>
+    <div class="panel-body">
+        <% @project.collaborators.each do |collaborator| %>
+            <ul>
+                <li><%= collaborator.name %></li>
+            </ul>
+        <% end %>
+    </div>
+</div>
+
+<%= link_to 'Back', projects_path, class: "btn btn-primary" %>

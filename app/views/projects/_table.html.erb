@@ -1,0 +1,14 @@
+	<br>
+	<table>
+		<thead>
+			<th>Collaborators</th>
+		</thead>
+		<tbody>
+			<% collaborators.each do |collaborator| %>
+				<tr>
+					<td><%= collaborator.name %></td>
+					<td><input type="checkbox" name="<%="collaborator-#{collaborator.id}"%>" value="<%=collaborator.id%>"  <%="checked" if collaborator.belongs_to_project(@project.id)%>></td>
+				</tr> 	
+			<% end %>
+		</tbody>
+	</table>

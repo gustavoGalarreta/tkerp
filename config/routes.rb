@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :projects do
+    get 'tasks', on: :collection
+  end
+  resources :tasks
   resources :prospects do
       get :autocomplete_client_name, :on => :collection
       get :update_contacts, :on => :collection
